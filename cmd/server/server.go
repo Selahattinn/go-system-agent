@@ -13,12 +13,19 @@ var (
 )
 
 func main() {
+	// parse flags
 	flag.Parse()
+
+	// create server config
 	config := &server.Config{
 		ListenAddress: *listenAddres,
 	}
+
+	// create new server instance
 	i := server.NewInstance(config)
 	logrus.Infof("Starting go-system-agent-server %s", version.Info())
 	logrus.Infof("Build context %s", version.BuildContext())
+
+	//start server
 	i.Start()
 }

@@ -15,6 +15,7 @@ func NewWalker(rootDirectory string) Walker {
 	return Walker{rootDirectory: rootDirectory}
 }
 
+// Walk walks all files which in given under the root directory and collects information about them
 func (w *Walker) Walk() ([]*model.File, error) {
 	var files []*model.File
 	err := filepath.Walk(w.rootDirectory, func(path string, info os.FileInfo, err error) error {

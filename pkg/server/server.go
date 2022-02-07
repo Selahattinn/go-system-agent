@@ -37,7 +37,7 @@ func (i *Instance) Start() {
 	if err != nil {
 		logrus.WithError(err).Fatal("Could not create API instance")
 	}
-	// Startup the HTTP Server in a way that we can gracefully shut it down again
+	// Startup the HTTP Server
 	i.httpServer = &http.Server{
 		Addr:    i.Config.ListenAddress,
 		Handler: router,

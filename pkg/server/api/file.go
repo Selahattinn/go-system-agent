@@ -10,7 +10,7 @@ import (
 )
 
 func (a *API) getAllFilesInformations(w http.ResponseWriter, r *http.Request) {
-	//handle with req
+
 	var fwReq model.Message
 	err := json.NewDecoder(r.Body).Decode(&fwReq)
 	if err != nil {

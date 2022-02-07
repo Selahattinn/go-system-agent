@@ -16,15 +16,25 @@ var (
 )
 
 func main() {
+
+	//for parsing flags
 	flag.Parse()
+
+	// create walker
 	walker := walker.NewWalker(*rootDirectory)
-	client := client.NewClient("http://"+*serverAdrres+":"+*serverPort+"/api/v1/files", &walker)
-	err := client.Walk()
+
+	// create client
+	c := client.NewClient("http://"+*serverAdrres+":"+*serverPort+"/api/v1/files", &walker)
+
+	// get informations about files
+	err := c.Walk()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	err = client.SendToServer()
+
+	// send information to server
+	err = c.SendToServer()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
