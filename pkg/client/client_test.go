@@ -21,12 +21,12 @@ func TestNewClient(t *testing.T) {
 		args args
 		want *Client
 	}{
-		{name: "Create New Client", args: args{ServerAddress: "127.0.0.1", ClientID: 1, walker: &testWalker}, want: &Client{serverAddress: "127.0.0.1", clientID: 1, walker: &testWalker2}},
+		{name: "Create New Client", args: args{ServerAddress: "127.0.0.1", walker: &testWalker}, want: &Client{serverAddress: "127.0.0.1", walker: &testWalker2}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := NewClient(tt.args.ServerAddress, tt.args.ClientID, tt.args.walker)
-			if got.clientID != tt.want.clientID || got.serverAddress != tt.want.serverAddress || got.walker.GetRootDirectory() != tt.want.walker.GetRootDirectory() {
+			got := NewClient(tt.args.ServerAddress, tt.args.walker)
+			if got.serverAddress != tt.want.serverAddress || got.walker.GetRootDirectory() != tt.want.walker.GetRootDirectory() {
 				t.Errorf("NewClient() = %v, want %v", got, tt.want)
 
 			}
@@ -49,13 +49,12 @@ func TestClient_AddFile(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{name: "Add File To Files", fields: fields{serverAddress: "127.0.0.1", clientID: 1, files: make([]*model.File, 0), walker: &walker.Walker{}}},
+		{name: "Add File To Files", fields: fields{serverAddress: "127.0.0.1", files: make([]*model.File, 0), walker: &walker.Walker{}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Client{
 				serverAddress: tt.fields.serverAddress,
-				clientID:      tt.fields.clientID,
 				files:         tt.fields.files,
 				walker:        tt.fields.walker,
 			}
@@ -75,13 +74,12 @@ func TestClient_ClearFiles(t *testing.T) {
 		name   string
 		fields fields
 	}{
-		{name: "Clear Files", fields: fields{serverAddress: "127.0.0.1", clientID: 1, files: make([]*model.File, 0), walker: &walker.Walker{}}},
+		{name: "Clear Files", fields: fields{serverAddress: "127.0.0.1", files: make([]*model.File, 0), walker: &walker.Walker{}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Client{
 				serverAddress: tt.fields.serverAddress,
-				clientID:      tt.fields.clientID,
 				files:         tt.fields.files,
 				walker:        tt.fields.walker,
 			}
